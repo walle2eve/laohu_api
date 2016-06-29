@@ -1,0 +1,525 @@
+[ 2016-06-12T10:45:15+08:00 ] 127.0.0.1 /V1/Player/get_info
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000065s ]
+INFO: [ app_init ] --END-- [ RunTime:0.003420s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001060s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001469s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002704s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0091s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0081s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0083s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0089s ]
+
+[ 2016-06-12T10:45:15+08:00 ] 127.0.0.1 /V1/Player/update_password
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000306s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000417s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000591s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001087s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0095s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0080s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0082s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0089s ]
+SQL: UPDATE `t_user_info` SET `password`='a68c998f08d968ed46f6fa015e129b86' WHERE ( user_id = 11018 ) [ RunTime:0.0072s ]
+
+[ 2016-06-12T10:45:15+08:00 ] 127.0.0.1 /V1/Player/frozen_player
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000313s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000631s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000866s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001608s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0085s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0082s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0098s ]
+SQL: UPDATE `t_user_info` SET `status`='-1' WHERE ( user_id = 11018 ) [ RunTime:0.0079s ]
+SQL: SHOW COLUMNS FROM `t_sys_log` [ RunTime:0.0086s ]
+SQL: INSERT INTO `t_sys_log` (`do_type`,`content`,`log_type`,`create_time`,`operator_id`,`player_id`,`remark`) VALUES ('110200','冻结玩家账号','120150','1465699515','10012','11018','冻结原因是：该账号涉嫌诈骗！') [ RunTime:0.0089s ]
+
+[ 2016-06-12T10:45:15+08:00 ] 127.0.0.1 /V1/Player/get_all_spindata
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000443s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000634s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000877s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001637s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0079s ]
+
+[ 2016-06-12T10:45:15+08:00 ] 127.0.0.1 /V1/Player/deposit_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000479s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000664s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000883s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001674s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0082s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0080s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0104s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0087s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0078s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0079s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010010' ) LIMIT 1   [ RunTime:0.0082s ]
+
+[ 2016-06-12T10:45:16+08:00 ] 127.0.0.1 /V1/Player/withdrawal_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000887s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001132s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001083s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002343s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0090s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0090s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0093s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0101s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0082s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0084s ]
+
+[ 2016-06-12T10:45:16+08:00 ] 127.0.0.1 /V1/Player/get_order_status
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000030s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001015s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000992s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.002348s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003577s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0090s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0087s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0092s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0078s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0078s ]
+NOTIC: [8] Undefined index: err_code C:\wwwroot\laohu\laohu_api\Application\V1\Service\PlayerService.class.php 第 555 行.
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( user_id = 11018 ) LIMIT 1   [ RunTime:0.0081s ]
+
+[ 2016-06-12T16:27:42+08:00 ] 127.0.0.1 /V1/Player/get_info
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000028s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000967s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000860s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001205s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002201s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0096s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0082s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0096s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0099s ]
+
+[ 2016-06-12T16:27:42+08:00 ] 127.0.0.1 /V1/Player/update_password
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000366s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000497s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000707s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001290s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0082s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0083s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0087s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0089s ]
+SQL: UPDATE `t_user_info` SET `password`='a68c998f08d968ed46f6fa015e129b86' WHERE ( user_id = 11018 ) [ RunTime:0.0079s ]
+
+[ 2016-06-12T16:27:43+08:00 ] 127.0.0.1 /V1/Player/frozen_player
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000049s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001285s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001667s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.002499s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004455s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0088s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0093s ]
+SQL: UPDATE `t_user_info` SET `status`='-1' WHERE ( user_id = 11018 ) [ RunTime:0.0100s ]
+SQL: SHOW COLUMNS FROM `t_sys_log` [ RunTime:0.0087s ]
+SQL: INSERT INTO `t_sys_log` (`do_type`,`content`,`log_type`,`create_time`,`operator_id`,`player_id`,`remark`) VALUES ('110200','冻结玩家账号','120150','1465720063','10012','11018','冻结原因是：该账号涉嫌诈骗！') [ RunTime:0.0080s ]
+
+[ 2016-06-12T16:27:43+08:00 ] 127.0.0.1 /V1/Player/get_all_spindata
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000538s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000399s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000602s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001070s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0088s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0083s ]
+
+[ 2016-06-12T16:27:43+08:00 ] 127.0.0.1 /V1/Player/deposit_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000490s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000639s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000846s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001578s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0081s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0083s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0091s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0091s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0081s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0077s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0078s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010010' ) LIMIT 1   [ RunTime:0.0081s ]
+
+[ 2016-06-12T16:27:43+08:00 ] 127.0.0.1 /V1/Player/withdrawal_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000337s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000447s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000615s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001139s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0087s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0077s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0094s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0088s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0080s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0078s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0083s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0079s ]
+
+[ 2016-06-12T16:27:43+08:00 ] 127.0.0.1 /V1/Player/get_order_status
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000035s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000995s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001395s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001966s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003599s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0084s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0080s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0082s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0080s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0078s ]
+NOTIC: [8] Undefined index: err_code C:\wwwroot\laohu\laohu_api\Application\V1\Service\PlayerService.class.php 第 555 行.
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0090s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( user_id = 11018 ) LIMIT 1   [ RunTime:0.0096s ]
+
+[ 2016-06-12T17:04:57+08:00 ] 127.0.0.1 /V1/Player/get_info
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000540s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000841s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001223s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002203s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0093s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0088s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0095s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0103s ]
+
+[ 2016-06-12T17:04:58+08:00 ] 127.0.0.1 /V1/Player/update_password
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000378s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000860s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001197s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002171s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0091s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0116s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0094s ]
+SQL: UPDATE `t_user_info` SET `password`='a68c998f08d968ed46f6fa015e129b86' WHERE ( user_id = 11018 ) [ RunTime:0.0077s ]
+
+[ 2016-06-12T17:04:58+08:00 ] 127.0.0.1 /V1/Player/frozen_player
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000380s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000640s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000657s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001396s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0083s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0123s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0091s ]
+SQL: UPDATE `t_user_info` SET `status`='-1' WHERE ( user_id = 11018 ) [ RunTime:0.0077s ]
+SQL: SHOW COLUMNS FROM `t_sys_log` [ RunTime:0.0086s ]
+SQL: INSERT INTO `t_sys_log` (`do_type`,`content`,`log_type`,`create_time`,`operator_id`,`player_id`,`remark`) VALUES ('110200','冻结玩家账号','120150','1465722298','10012','11018','冻结原因是：该账号涉嫌诈骗！') [ RunTime:0.0076s ]
+
+[ 2016-06-12T17:04:58+08:00 ] 127.0.0.1 /V1/Player/get_all_spindata
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000305s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000700s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000798s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001606s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0176s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0086s ]
+
+[ 2016-06-12T17:04:58+08:00 ] 127.0.0.1 /V1/Player/deposit_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000297s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000425s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000603s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001105s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0091s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0084s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0100s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0090s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0091s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0081s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010010' ) LIMIT 1   [ RunTime:0.0079s ]
+
+[ 2016-06-12T17:04:58+08:00 ] 127.0.0.1 /V1/Player/withdrawal_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000043s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001374s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000924s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001316s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002400s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0103s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0088s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0106s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0109s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0084s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0095s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0096s ]
+
+[ 2016-06-12T17:04:58+08:00 ] 127.0.0.1 /V1/Player/get_order_status
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000663s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000904s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001702s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002779s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0079s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0078s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0081s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0076s ]
+NOTIC: [8] Undefined index: err_code C:\wwwroot\laohu\laohu_api\Application\V1\Service\PlayerService.class.php 第 555 行.
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0085s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( user_id = 11018 ) LIMIT 1   [ RunTime:0.0088s ]
+
+[ 2016-06-12T17:05:08+08:00 ] 127.0.0.1 /V1/Player/get_info
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000531s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000798s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001154s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002074s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0098s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0086s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0096s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0116s ]
+
+[ 2016-06-12T17:05:08+08:00 ] 127.0.0.1 /V1/Player/update_password
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000832s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000774s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001093s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001998s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0099s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0092s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0093s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0101s ]
+SQL: UPDATE `t_user_info` SET `password`='a68c998f08d968ed46f6fa015e129b86' WHERE ( user_id = 11018 ) [ RunTime:0.0094s ]
+
+[ 2016-06-12T17:05:08+08:00 ] 127.0.0.1 /V1/Player/frozen_player
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000413s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000438s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000683s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001207s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0083s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0084s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0093s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0116s ]
+SQL: UPDATE `t_user_info` SET `status`='-1' WHERE ( user_id = 11018 ) [ RunTime:0.0077s ]
+SQL: SHOW COLUMNS FROM `t_sys_log` [ RunTime:0.0079s ]
+SQL: INSERT INTO `t_sys_log` (`do_type`,`content`,`log_type`,`create_time`,`operator_id`,`player_id`,`remark`) VALUES ('110200','冻结玩家账号','120150','1465722308','10012','11018','冻结原因是：该账号涉嫌诈骗！') [ RunTime:0.0083s ]
+
+[ 2016-06-12T17:05:09+08:00 ] 127.0.0.1 /V1/Player/get_all_spindata
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000379s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000642s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000769s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001482s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0096s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0088s ]
+
+[ 2016-06-12T17:05:09+08:00 ] 127.0.0.1 /V1/Player/deposit_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000469s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000705s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001860s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0093s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0094s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0097s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0097s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0087s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010010' ) LIMIT 1   [ RunTime:0.0095s ]
+
+[ 2016-06-12T17:05:09+08:00 ] 127.0.0.1 /V1/Player/withdrawal_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000467s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000925s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000835s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001916s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0082s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0093s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0098s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0087s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0083s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0082s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0080s ]
+
+[ 2016-06-12T17:05:09+08:00 ] 127.0.0.1 /V1/Player/get_order_status
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000531s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000713s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001006s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001847s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0084s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0082s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0093s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0081s ]
+NOTIC: [8] Undefined index: err_code C:\wwwroot\laohu\laohu_api\Application\V1\Service\PlayerService.class.php 第 555 行.
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( user_id = 11018 ) LIMIT 1   [ RunTime:0.0085s ]
+
+[ 2016-06-12T17:24:16+08:00 ] 127.0.0.1 /V1/Player/get_info
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000592s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000533s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.001504s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002143s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0083s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0082s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0090s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0096s ]
+
+[ 2016-06-12T17:24:17+08:00 ] 127.0.0.1 /V1/Player/update_password
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000459s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000458s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000597s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001139s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0098s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0091s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0085s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0117s ]
+SQL: UPDATE `t_user_info` SET `password`='a68c998f08d968ed46f6fa015e129b86' WHERE ( user_id = 11018 ) [ RunTime:0.0075s ]
+
+[ 2016-06-12T17:24:17+08:00 ] 127.0.0.1 /V1/Player/frozen_player
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000436s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000449s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000561s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001089s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0088s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0081s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0108s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0099s ]
+SQL: UPDATE `t_user_info` SET `status`='-1' WHERE ( user_id = 11018 ) [ RunTime:0.0074s ]
+SQL: SHOW COLUMNS FROM `t_sys_log` [ RunTime:0.0082s ]
+SQL: INSERT INTO `t_sys_log` (`do_type`,`content`,`log_type`,`create_time`,`operator_id`,`player_id`,`remark`) VALUES ('110200','冻结玩家账号','120150','1465723457','10012','11018','冻结原因是：该账号涉嫌诈骗！') [ RunTime:0.0078s ]
+
+[ 2016-06-12T17:24:17+08:00 ] 127.0.0.1 /V1/Player/get_all_spindata
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000297s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000390s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000547s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001015s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0084s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0081s ]
+
+[ 2016-06-12T17:24:17+08:00 ] 127.0.0.1 /V1/Player/deposit_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000486s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000411s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000602s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001093s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0101s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0078s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0084s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0092s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0083s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0080s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0093s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010010' ) LIMIT 1   [ RunTime:0.0080s ]
+
+[ 2016-06-12T17:24:17+08:00 ] 127.0.0.1 /V1/Player/withdrawal_gold
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000462s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000604s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000885s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001600s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0083s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0083s ]
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0105s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( operator_id = 10012 AND account_id = 'test_player02' ) LIMIT 1   [ RunTime:0.0089s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0086s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0082s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0085s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0079s ]
+
+[ 2016-06-12T17:24:18+08:00 ] 127.0.0.1 /V1/Player/get_order_status
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000384s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000629s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.000760s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001459s ]
+SQL: SHOW COLUMNS FROM `t_sys_user` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0082s ]
+SQL: SHOW COLUMNS FROM `t_user_order_info` [ RunTime:0.0087s ]
+SQL: SELECT * FROM `t_sys_user` WHERE `uid` = 10012 AND `user_role` IN (100210,100220) LIMIT 1   [ RunTime:0.0077s ]
+SQL: SELECT * FROM `t_user_order_info` WHERE ( operator_id = 10012 AND operator_sn = '201606031923010013' ) LIMIT 1   [ RunTime:0.0078s ]
+NOTIC: [8] Undefined index: err_code C:\wwwroot\laohu\laohu_api\Application\V1\Service\PlayerService.class.php 第 555 行.
+SQL: SHOW COLUMNS FROM `t_user_info` [ RunTime:0.0090s ]
+SQL: SELECT * FROM `t_user_info` WHERE ( user_id = 11018 ) LIMIT 1   [ RunTime:0.0080s ]
+
