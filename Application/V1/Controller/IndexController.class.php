@@ -5,8 +5,8 @@ use Think\Controller;
 
 class IndexController extends Controller
 {
-    public function index()
-    {
+    public function index(){
+      halt('error page');
 		echo "当前模块名:" . MODULE_NAME;
 		echo "<br />";
 		echo "当前模块路径:" . MODULE_PATH;
