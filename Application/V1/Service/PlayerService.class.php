@@ -25,53 +25,53 @@ class PlayerService extends BaseService{
 	 * @param $param2			扩展参数2
 	 * @return array
 	 */
-    public static function register($param = array()){
-		
+  public static function register($param = array()){
+
 		// 必填项不能为空
 		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || (!isset($param['password']) || $param['password']== '')){
-			
+
 			$err_code = 1007;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
-		
+
 		if(!empty($user_info)){
-			
+
 			$err_code = 1003;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		// 验证参数
 		$data = array();
 		$param_err = 0;
-		
+
 		// 字符串长度检测
-		
+
 		if(strlen($param['playeraccount']) > 60){
 			$param_err = 1;
 		}else{
 			$data['account_id'] = trim($param['playeraccount']);
 		}
-		
+
 		$data['operator_id'] = $param['operatorid'];
-		
+
 		$data['uniquekey'] = to_guid_string($data['operator_id'] . $data['account_id']);
-		
+
 		$data['password'] = get_pwd($param['password'],$data['uniquekey']);
-		
+
 		if($param['sex'] != ''){
 			$data['sex'] = !in_array($param['sex'],array('男','女')) ? 0 :  ($param['sex'] == '男' ? 1 : 2);
 		}
-		
+
 		if($param['first_name']!=''){
 			if(strlen($param['first_name']) > 60){
 				$param_err = 1;
@@ -79,7 +79,7 @@ class PlayerService extends BaseService{
 				$data['first_name'] = trim($param['first_name']);
 			}
 		}
-		
+
 		if($param['last_name']!=''){
 			if(strlen($param['last_name']) > 60){
 				$param_err = 1;
@@ -87,7 +87,7 @@ class PlayerService extends BaseService{
 				$data['last_name'] = trim($param['last_name']);
 			}
 		}
-		
+
 		if($param['birthday']!=''){
 			if(!is_datetime($param['birthday'])){
 				$param_err = 1;
@@ -95,7 +95,7 @@ class PlayerService extends BaseService{
 				$data['birthday'] = date('Y-m-d',strtotime($param['birthday']));
 			}
 		}
-		
+
 		if($param['nick_name']!=''){
 			if(strlen($param['nick_name']) > 60){
 				$param_err = 1;
@@ -111,7 +111,7 @@ class PlayerService extends BaseService{
 				$data['mobile_number'] = trim($param['mobile_number']);
 			}
 		}
-		
+
 		if($param['country']!=''){
 			if(strlen($param['country']) > 10){
 				$param_err = 1;
@@ -119,7 +119,7 @@ class PlayerService extends BaseService{
 				$data['country'] = trim($param['country']);
 			}
 		}
-		
+
 		if($param['city']!=''){
 			if(strlen($param['city']) > 10){
 				$param_err = 1;
@@ -127,7 +127,7 @@ class PlayerService extends BaseService{
 				$data['city'] = trim($param['city']);
 			}
 		}
-		
+
 		if($param['email']!=''){
 			if(strlen($param['email']) > 60){
 				$param_err = 1;
@@ -135,7 +135,7 @@ class PlayerService extends BaseService{
 				$data['email'] = trim($param['email']);
 			}
 		}
-		
+
 		if($param['qq']!=''){
 			if(strlen($param['email']) > 20){
 				$param_err = 1;
@@ -143,11 +143,11 @@ class PlayerService extends BaseService{
 				$data['qq'] = trim($param['qq']);
 			}
 		}
-		
+
 		if($param['vip_level']!=''){
 			$data['vip_level'] = intval($param['vip_level']);
 		}
-		
+
 		if($param['param1']!=''){
 			if(strlen($param['param1']) > 60){
 				$param_err = 1;
@@ -155,7 +155,7 @@ class PlayerService extends BaseService{
 				$data['param1'] = trim($param['param1']);
 			}
 		}
-		
+
 		if($param['param2']!=''){
 			if(strlen($param['param2']) > 60){
 				$param_err = 1;
@@ -163,14 +163,14 @@ class PlayerService extends BaseService{
 				$data['param2'] = trim($param['param2']);
 			}
 		}
-		
+
 		// 为防止数据库gold字段默认值和是否为空发生变化，这里生成用户时默认gold值为0
 		$data['gold'] = 0;
-		
+
 		// 创建玩家账号
-		
+
 		$user_id = D('UserInfo')->add_player($data);
-		
+
 		if($user_id){
 			return array(
 				'ret' => 0,
@@ -184,7 +184,7 @@ class PlayerService extends BaseService{
 				'msg' => get_err_msg($err_code),
 			);
 		}
-    }
+  }
 
 	/**
 	 * @function get_info	获取玩家信息
@@ -196,27 +196,27 @@ class PlayerService extends BaseService{
 	public static function get_info($param = array()){
 		// 必填项不能为空
 		if(!isset($param['playeraccount']) || $param['playeraccount'] == ''){
-			
+
 			$err_code = 1007;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
-		
+
 		if(!$user_info){
-			
+
 			$err_code = 1004;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		return array(
 			'ret' => 0,
 			'playeraccount' => $user_info['account_id'],
@@ -240,7 +240,7 @@ class PlayerService extends BaseService{
 			'lastloginip' => $user_info['last_login_ip'] ? $user_info['last_login_ip'] : '',
 		);
 	}
-	
+
 	/**
 	 * @function update_pwd
 	 * @param $operator_id		运营商ID
@@ -252,47 +252,47 @@ class PlayerService extends BaseService{
 	public static function update_pwd($param = array()){
 		// 必填项不能为空
 		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || (!isset($param['newpassword']) || $param['newpassword']== '')){
-			
+
 			$err_code = 1007;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
-		
+
 		if(!$user_info){
-			
+
 			$err_code = 1004;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		$password = get_pwd($user_info['uniquekey'],$param['newpassword']);
-		
+
 		$return = D('UserInfo')->update_pwd($user_info['user_id'],$password);
-		
+
 		if($return === false){
-			
+
 			$err_code = 1098;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		return array(
 			'ret' => 0,
 			'playeraccount' => $param['playeraccount']
 		);
 	}
-	
+
 	/**
 	 * @function frozen			冻结玩家账号
 	 * @param $operator_id		运营商ID
@@ -304,29 +304,29 @@ class PlayerService extends BaseService{
 	public static function frozen($param = array()){
 		// 必填项不能为空
 		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || (!isset($param['reason']) || trim($param['reason']) == '')){
-			
+
 			$err_code = 1007;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
-		
+
 		if(!$user_info){
-			
+
 			$err_code = 1004;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		// 冻结操作
-		
+
 		$return = D('UserInfo')->frozen($user_info,$param['reason']);
 		if($return === false){
 			$err_code = 1099;
@@ -334,14 +334,14 @@ class PlayerService extends BaseService{
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
-		}		
+		}
 		return array(
 			'ret' => 0,
 			'playeraccount' => $param['playeraccount'],
 			'playerstatus'	=> -1,
 		);
 	}
-	
+
 	/**
 	 * @function frozen			冻结玩家账号
 	 * @param $operator_id		运营商ID
@@ -353,9 +353,9 @@ class PlayerService extends BaseService{
 	public static function get_all_spindata($param = array()){
 		// 必填项不能为空
 		if((!isset($param['startdate']) || trim($param['startdate'] == '')) || (!isset($param['enddate']) || trim($param['enddate']) == '')){
-			
+
 			$err_code = 1007;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
@@ -363,33 +363,33 @@ class PlayerService extends BaseService{
 		}
 		// 是否时间类型
 		if(!is_datetime($param['startdate']) || !is_datetime($param['enddate'])){
-			
+
 			$err_code = 1011;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		$param['startdate'] = strtotime($param['startdate']);
 		$param['enddate'] = strtotime($param['enddate']);
-		
+
 		$param['pagenum'] = intval($param['pagenum']) ? intval($param['pagenum']) : 1;
-		
+
 		// 开始时间不能大于结束时间
 		if($param['startdate'] > $param['enddate'] || (strtotime('-1 day',date($param['enddate'],'Y-m-d H:i:s')) > $param['startdate'])){
-			
+
 			$err_code = 1012;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		// 调取数据
-		
+
 		$result = D('SpinLog')->get_all_spindata($param['operator_id'],$param['startdate'],$param['enddate'],$param['pagenum']);
 
 		return array(
@@ -411,34 +411,34 @@ class PlayerService extends BaseService{
 	 */
 	public static function deposit($param = array()){
 		// 必填项不能为空
-		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || 
-			(!isset($param['adminname']) || $param['adminname'] == '') || 
-			(!isset($param['operatororderid']) || $param['operatororderid'] == '') || 
+		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') ||
+			(!isset($param['adminname']) || $param['adminname'] == '') ||
+			(!isset($param['operatororderid']) || $param['operatororderid'] == '') ||
 			(!isset($param['amount']) || $param['amount'] == '')){
-			
+
 			$err_code = 1007;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
 		// 格式化参数
-		
+
 		$param['amount'] = (float)$param['amount'];
-		
+
 		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
-		
+
 		if(!$user_info){
-			
+
 			$err_code = 1004;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		// 充值 
+		// 充值
 		$return  =  D('UserOrderInfo')->deposit($param['operatorid'],$user_info,$param['adminname'],$param['operatororderid'],$param['amount']);
 
 		if($return['err_code'] > 0){
@@ -450,7 +450,7 @@ class PlayerService extends BaseService{
 		}
 
 		return array(
-			'ret' => 0, 
+			'ret' => 0,
 			'playeraccount' => $param['playeraccount'],
 			'amount' => $param['amount'],
 			'operatorid' => $param['operatorid'],
@@ -460,7 +460,7 @@ class PlayerService extends BaseService{
 			'kiosktransactiontime' => $return['create_time'],
 		);
 	}
-	
+
 	/**
 	 * @function deposit		玩家取现
 	 * @param $operator_id		运营商ID
@@ -473,34 +473,34 @@ class PlayerService extends BaseService{
 	 */
 	public static function withdrawal($param = array()){
 		// 必填项不能为空
-		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || 
-			(!isset($param['adminname']) || $param['adminname'] == '') || 
-			(!isset($param['operatororderid']) || $param['operatororderid'] == '') || 
+		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') ||
+			(!isset($param['adminname']) || $param['adminname'] == '') ||
+			(!isset($param['operatororderid']) || $param['operatororderid'] == '') ||
 			(!isset($param['amount']) || $param['amount'] == '')){
-			
+
 			$err_code = 1007;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
 		// 格式化参数
-		
+
 		$param['amount'] = (float)$param['amount'];
-		
+
 		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
 
 		if(!$user_info){
-			
+
 			$err_code = 1004;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		// 取现 
+		// 取现
 		$return  =  D('UserOrderInfo')->withdrawal($param['operatorid'],$user_info,$param['adminname'],$param['operatororderid'],$param['amount']);
 
 		if($return['err_code'] > 0){
@@ -512,7 +512,7 @@ class PlayerService extends BaseService{
 		}
 
 		return array(
-			'ret' => 0, 
+			'ret' => 0,
 			'playeraccount' => $param['playeraccount'],
 			'amount' => $param['amount'],
 			'operatorid' => $param['operatorid'],
@@ -534,18 +534,18 @@ class PlayerService extends BaseService{
 	 */
 	public static function get_order_status($param = array()){
 		// 必填项不能为空
-		if((!isset($param['adminname']) || $param['adminname'] == '') || 
+		if((!isset($param['adminname']) || $param['adminname'] == '') ||
 			(!isset($param['operatororderid']) || $param['operatororderid'] == '')){
-			
+
 			$err_code = 1007;
-			
+
 			return array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
-		// 取现 
+
+		// 取现
 		$return  =  D('UserOrderInfo')->get_operator_order($param['operatorid'],$param['adminname'],$param['operatororderid']);
 
 		if($return['err_code'] > 0){
@@ -555,11 +555,11 @@ class PlayerService extends BaseService{
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		$user_info = D('UserInfo')->where('user_id = %d',array($return['player_id']))->find();
-		
+
 		return array(
-			'ret' => 0, 
+			'ret' => 0,
 			'playeraccount' => $user_info['account_id'],
 			'amount' => $return['amount'],
 			'operatorid' => $param['operatorid'],
