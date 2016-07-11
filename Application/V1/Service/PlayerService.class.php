@@ -343,12 +343,8 @@ class PlayerService extends BaseService{
 	}
 
 	/**
-	 * @function frozen			冻结玩家账号
-	 * @param $operator_id		运营商ID
-	 * @param $operator_key		运营商Key
-	 * @param $player_account	玩家登录名
-	 * @param $reason			冻结原因
-	 * @return array
+	 * @function get_all_spindata			获取玩家投注信息
+
 	 */
 	public static function get_all_spindata($param = array()){
 		// 必填项不能为空
@@ -378,7 +374,7 @@ class PlayerService extends BaseService{
 		$param['pagenum'] = intval($param['pagenum']) ? intval($param['pagenum']) : 1;
 
 		// 开始时间不能大于结束时间
-		if($param['startdate'] > $param['enddate'] || (strtotime('-1 day',date($param['enddate'],'Y-m-d H:i:s')) > $param['startdate'])){
+		if($param['startdate'] > $param['enddate'] || (strtotime('-2 day',date($param['enddate'],'Y-m-d H:i:s')) > $param['startdate'])){
 
 			$err_code = 1012;
 
