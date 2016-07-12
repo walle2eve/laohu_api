@@ -87,8 +87,9 @@ class SpinLogModel extends Model
 			$create_time = ceil($row['createtime'] / 1000);
 
 			$list[$player][] = array(
-				'spinnumber' => $spin_num,
+				'round' => $spin_num,
 				'gameid'	=>	intval($row['theme_id']),
+        'gamename' => $row['theme_name'],
 				'bet'	=>	floatval($row['total_bet']),
 				'win'	=> 	floatval($row['win']),
 				'type'	=> 	intval($row['reason']),
