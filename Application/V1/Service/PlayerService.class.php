@@ -275,7 +275,7 @@ class PlayerService extends BaseService{
 
 		$password = get_pwd($user_info['uniquekey'],$param['newpassword']);
 
-		$return = D('UserInfo')->update_pwd($user_info['user_id'],$password);
+		$return = D('UserInfo')->update_pwd($param['operatorid'],$user_info['user_id'],$password);
 
 		if($return === false){
 
