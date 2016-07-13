@@ -17,6 +17,7 @@ class BaseController extends RestController{
 
 	private function check_method(){
 		echo $this->_method;
+		print_r($_SERVER);
 		if(strtolower($this->_method) != 'post')exit('error method');
 
 	}
