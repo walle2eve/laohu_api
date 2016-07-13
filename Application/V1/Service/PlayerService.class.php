@@ -72,19 +72,19 @@ class PlayerService extends BaseService{
 			$data['sex'] = !in_array($param['sex'],array('男','女')) ? 0 :  ($param['sex'] == '男' ? 1 : 2);
 		}
 
-		if($param['first_name']!=''){
-			if(strlen($param['first_name']) > 60){
+		if($param['firstname']!=''){
+			if(strlen($param['firstname']) > 60){
 				$param_err = 1;
 			}else{
-				$data['first_name'] = trim($param['first_name']);
+				$data['first_name'] = trim($param['firstname']);
 			}
 		}
 
-		if($param['last_name']!=''){
-			if(strlen($param['last_name']) > 60){
+		if($param['lastname']!=''){
+			if(strlen($param['lastname']) > 60){
 				$param_err = 1;
 			}else{
-				$data['last_name'] = trim($param['last_name']);
+				$data['last_name'] = trim($param['lastname']);
 			}
 		}
 
@@ -96,19 +96,19 @@ class PlayerService extends BaseService{
 			}
 		}
 
-		if($param['nick_name']!=''){
-			if(strlen($param['nick_name']) > 60){
+		if($param['nickname']!=''){
+			if(strlen($param['nickname']) > 60){
 				$param_err = 1;
 			}else{
-				$data['nick_name'] = trim($param['nick_name']);
+				$data['nick_name'] = trim($param['nickname']);
 			}
 		}
 		//$operator_id,$operator_key,$player_account,$password,$sex='',$first_name='',$last_name='',$birthday='',$nick_name='',$mobile_number='',$country='',$city='',$email='',$qq='',$vip_level='',$param1='',$param2=''
-		if($param['mobile_number']!=''){
-			if(strlen($param['mobile_number']) > 20){
+		if($param['mobilenumber']!=''){
+			if(strlen($param['mobilenumber']) > 20){
 				$param_err = 1;
 			}else{
-				$data['mobile_number'] = trim($param['mobile_number']);
+				$data['mobile_number'] = trim($param['mobilenumber']);
 			}
 		}
 
@@ -121,7 +121,7 @@ class PlayerService extends BaseService{
 		}
 
 		if($param['city']!=''){
-			if(strlen($param['city']) > 10){
+			if(strlen($param['city']) > 20){
 				$param_err = 1;
 			}else{
 				$data['city'] = trim($param['city']);
