@@ -121,7 +121,7 @@ class PlayerService extends BaseService{
 		}
 
 		if($param['city']!=''){
-			if(strlen($param['city']) > 20){
+			if(strlen($param['city']) > 60){
 				$param_err = 1;
 			}else{
 				$data['city'] = trim($param['city']);
