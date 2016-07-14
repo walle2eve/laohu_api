@@ -55,13 +55,6 @@ class UserOrderInfoModel extends Model
 		$gold = $amount;
 		$balance_gold = $user_info['gold'] + $amount;
 
-		$sn_info = $this->add_order_info($operatorid,$user_info,$adminname,$operatororderid,$amount,$status,self::DEPOSIT_ORDER_TYPE,$gold,$balance_gold,$remark);
-
-		if($sn_info === false){
-			$this->rollback();
-			return array('err_code'=>1099);
-		}
-
 		// 用户余额增加$amount
 		$user_amount_inc = M('UserInfo')->where('user_id = %d',array($user_info['user_id']))->setInc('gold',$amount);
 		////echo M()->getlastsql();exit();
@@ -69,6 +62,15 @@ class UserOrderInfoModel extends Model
 			$this->rollback();
 			return array('err_code'=>1099);
 		}
+		
+		$sn_info = $this->add_order_info($operatorid,$user_info,$adminname,$operatororderid,$amount,$status,self::DEPOSIT_ORDER_TYPE,$gold,$balance_gold,$remark);
+
+		if($sn_info === false){
+			$this->rollback();
+			return array('err_code'=>1099);
+		}
+
+
 		// 运营商金币余额减去$amount
 		$operator_amount_dec = D('SysUser')->where('uid = %d',array($operatorid))->setDec('gold',$amount);
 
@@ -82,6 +84,7 @@ class UserOrderInfoModel extends Model
 		$log_content = get_log_content(SysLogModel::PLAYER_DEPOSIT);
 
 		D('SysLog')->add_log(SysLogModel::API_DO_LOG,$log_content,SysLogModel::PLAYER_DEPOSIT,$operatorid,$user_info['user_id']);
+		
 		return $sn_info;
 
 	}

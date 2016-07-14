@@ -1,7 +1,9 @@
 <?php
 namespace V1\Service;
+
 use \V1\Model\SpinLogModel;
 use \V1\Model\UserOrderInfoModel;
+use \V1\Model\SysLogModel;
 
 class PlayerService extends BaseService{
 	/**
@@ -172,18 +174,25 @@ class PlayerService extends BaseService{
 		$user_id = D('UserInfo')->add_player($data);
 
 		if($user_id){
-			return array(
+			$err_code = 0;
+			$return = array(
 				'ret' => 0,
 				'playeraccount' => $param['playeraccount'],
 				'password' => $param['password'],
 			);
 		}else{
 			$err_code = 1099;
-			return array(
+			$return = array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
+		
+		$content = get_log_content(SysLogModel::PLAYER_REGISTER) . ($err_code == 0 ? '成功' : '失败');
+		
+		$log_result = D('SysLog')->add_log(SysLogModel::API_DO_LOG,$content,SysLogModel::PLAYER_REGISTER,$user_info['operator_id'],$user_info['user_id'],$reason);
+		
+		return $return;
   }
 
 	/**
