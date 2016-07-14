@@ -181,16 +181,19 @@ class PlayerService extends BaseService{
 				'password' => $param['password'],
 			);
 		}else{
+			
+			$user_id = 0;
 			$err_code = 1099;
+			
 			$return = array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
 		
-		$content = get_log_content(SysLogModel::PLAYER_REGISTER) . ($err_code == 0 ? '成功' : '失败');
+		$content = $data['account_id'] . get_log_content(SysLogModel::PLAYER_REGISTER) . ($err_code == 0 ? '成功' : '失败');
 		
-		$log_result = D('SysLog')->add_log(SysLogModel::API_DO_LOG,$content,SysLogModel::PLAYER_REGISTER,$user_info['operator_id'],$user_info['user_id'],$reason);
+		$log_result = D('SysLog')->add_log(SysLogModel::API_DO_LOG,$content,SysLogModel::PLAYER_REGISTER,$data['operator_id'],$user_id,$reason);
 		
 		return $return;
   }
