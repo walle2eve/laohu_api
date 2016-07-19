@@ -51,4 +51,27 @@ class UserInfoModel extends Model
 		return true;
 	}
 
+	// 设置玩家vip等级
+	public function set_viplevel($user_info,$vip_level){
+
+		$this->startTrans();
+
+		$vip_level = intval($vip_level);
+
+		$return = $this->where('user_id = %d',array($user_info['user_id']))->setField('vip_level',$vip_level);
+
+		if($return === false) {
+			$this->rollback();
+			return $return;
+		}
+
+		if(!$log_result){
+			$this->rollback();
+			return $log_result;
+		}
+
+		$this->commit();
+
+		return true;
+	}
 }

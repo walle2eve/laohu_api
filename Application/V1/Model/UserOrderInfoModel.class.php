@@ -62,7 +62,7 @@ class UserOrderInfoModel extends Model
 			$this->rollback();
 			return array('err_code'=>1099);
 		}
-		
+
 		$sn_info = $this->add_order_info($operatorid,$user_info,$adminname,$operatororderid,$amount,$status,self::DEPOSIT_ORDER_TYPE,$gold,$balance_gold,$remark);
 
 		if($sn_info === false){
@@ -81,10 +81,10 @@ class UserOrderInfoModel extends Model
 
 		$this->commit();
 
-		$log_content = get_log_content(SysLogModel::PLAYER_DEPOSIT);
+		$log_content = get_log_content(SysLogModel::PLAYER_DEPOSIT,array('amount'=>$amount));
 
 		D('SysLog')->add_log(SysLogModel::API_DO_LOG,$log_content,SysLogModel::PLAYER_DEPOSIT,$operatorid,$user_info['user_id']);
-		
+
 		return $sn_info;
 
 	}
@@ -156,7 +156,7 @@ class UserOrderInfoModel extends Model
 
 		$this->commit();
 
-		$log_content = get_log_content(SysLogModel::PLAYER_WITHDRAW);
+		$log_content = get_log_content(SysLogModel::PLAYER_WITHDRAW,array('amount'=>$amount));
 
 		D('SysLog')->add_log(SysLogModel::API_DO_LOG,$log_content,SysLogModel::PLAYER_WITHDRAW,$operatorid,$user_info['user_id']);
 		return $sn_info;

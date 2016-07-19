@@ -193,7 +193,7 @@ class PlayerService extends BaseService{
 			);
 		}
 
-		$content = $data['account_id'] . get_log_content(SysLogModel::PLAYER_REGISTER) . ($err_code == 0 ? '成功' : '失败');
+		$content =  get_log_content(SysLogModel::PLAYER_REGISTER,array('player_account'=>$data['account_id'])) . ($err_code == 0 ? '成功' : '失败');
 
 		$log_result = D('SysLog')->add_log(SysLogModel::API_DO_LOG,$content,SysLogModel::PLAYER_REGISTER,$data['operator_id'],$user_id,$reason);
 
@@ -355,10 +355,61 @@ class PlayerService extends BaseService{
 			'playerstatus'	=> -1,
 		);
 	}
+	/**
+	 * @function set_viplevel			设置玩家vip等级
+	 * @param $operator_id		运营商ID
+	 * @param $operator_key		运营商Key
+	 * @param $player_account	玩家登录名
+	 * @param $viplev					vip等级
+	 * @return array
+	 */
+	public static function set_viplevel($param = array()){
+		// 必填项不能为空
+		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || (!isset($param['viplev']) || trim($param['viplev']) == '')){
 
+			$err_code = 1007;
+
+			return array(
+				'ret' => $err_code,
+				'msg' => get_err_msg($err_code),
+			);
+		}
+
+		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
+
+		if(!$user_info){
+
+			$err_code = 1004;
+
+			return array(
+				'ret' => $err_code,
+				'msg' => get_err_msg($err_code),
+			);
+		}
+
+		// 设置vip等级
+
+		$return = D('UserInfo')->set_viplevel($user_info,$param['viplev']);
+		if($return === false){
+			$err_code = 1099;
+			return array(
+				'ret' => $err_code,
+				'msg' => get_err_msg($err_code),
+			);
+		}
+
+		$log_content = get_log_content(SysLogModel::SET_VIP_LEVEL,array('vip_level'=>$param['viplev']));
+
+		D('SysLog')->add_log(SysLogModel::API_DO_LOG,$log_content,SysLogModel::SET_VIP_LEVEL,$param['operatorid'],$user_info['user_id']);
+
+		return array(
+			'ret' => 0,
+			'playeraccount' => $param['playeraccount'],
+			'playerstatus'	=> $param['viplev'],
+		);
+	}
 	/**
 	 * @function get_all_spindata			获取玩家投注信息
-
 	 */
 	public static function get_all_spindata($param = array()){
 		// 必填项不能为空
