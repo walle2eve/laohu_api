@@ -169,6 +169,8 @@ class PlayerService extends BaseService{
 		// 为防止数据库gold字段默认值和是否为空发生变化，这里生成用户时默认gold值为0
 		$data['gold'] = 0;
 
+		$data['create_time'] = date('Y-m-d H:i:s');
+
 		// 创建玩家账号
 
 		$user_id = D('UserInfo')->add_player($data);
@@ -181,20 +183,20 @@ class PlayerService extends BaseService{
 				'password' => $param['password'],
 			);
 		}else{
-			
+
 			$user_id = 0;
 			$err_code = 1099;
-			
+
 			$return = array(
 				'ret' => $err_code,
 				'msg' => get_err_msg($err_code),
 			);
 		}
-		
+
 		$content = $data['account_id'] . get_log_content(SysLogModel::PLAYER_REGISTER) . ($err_code == 0 ? '成功' : '失败');
-		
+
 		$log_result = D('SysLog')->add_log(SysLogModel::API_DO_LOG,$content,SysLogModel::PLAYER_REGISTER,$data['operator_id'],$user_id,$reason);
-		
+
 		return $return;
   }
 
