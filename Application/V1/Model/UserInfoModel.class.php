@@ -22,6 +22,7 @@ class UserInfoModel extends Model
 
 		$log_content = get_log_content(SysLogModel::PLAYER_UPDATE_PWD);
 		D('SysLog')->add_log(SysLogModel::API_DO_LOG,$log_content,SysLogModel::PLAYER_UPDATE_PWD,$operator_id,$user_id);
+		
 		return $this->where('user_id = %d',array($user_id))->setField('password',$password);
 	}
 
