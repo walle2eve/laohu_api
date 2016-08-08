@@ -72,7 +72,8 @@ class SpinLogModel extends Model
     //print_r($page);exit();
 
 		$result = $this->alias('t')->where($where)->order('account_id,createTime')->limit($page->firstRow.','.$page->listRows)->select();
-
+		
+		$list = array();
 		$player = '';
 		$spin_num = 1;
 
