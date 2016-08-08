@@ -89,7 +89,7 @@ class SpinLogModel extends Model
 			$list[$player][] = array(
 				'round' => $spin_num,
 				'gameid'	=>	intval($row['theme_id']),
-        'gamename' => $row['theme_name'],
+				'gamename' => $row['theme_name'],
 				'bet'	=>	floatval($row['total_bet']),
 				'win'	=> 	floatval($row['win']),
 				'type'	=> 	intval($row['reason']),
@@ -100,9 +100,11 @@ class SpinLogModel extends Model
 
 		$data['players'] = $list;
 
+		$totalPages = $page->totalPages ? $page->totalPages : 0;
+		
 		$data['pagination'] = array(
 			"itemspage" => 500,
-			"totalpages" => $page->totalPages,
+			"totalpages" => $totalPages,
 			"currentpage" => $page_num,
 			"totalcount" => $count
 		);
