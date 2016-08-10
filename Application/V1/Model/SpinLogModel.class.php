@@ -54,20 +54,24 @@ class SpinLogModel extends Model
 	public function get_all_spindata($operator_id,$begin_time,$end_time,$page_num = 1,$per_page = 500){
 
 		$where = ' 1=1 ';
-		if($operator_id != ''){
-			$where .= " AND operator_id = " . $operator_id . " ";
-		}
 		// 数据表中存储的是java类型的时间戳，包含毫秒，需要转换
 		$where .= ' AND (createTime BETWEEN ' . ($begin_time * 1000) . ' AND ' . (($end_time) * 1000) . ') ';
+		if($operator_id != ''){
+			$where .= " AND operator_id = " . $operator_id . " ";
+		}else{
+			$where .= " AND operator_id <> 0 ";
+		}
 		if($account_id != ''){
-			$where .= " AND account_id LIKE '%" . $account_id . "%' ";
+			$where .= " AND account_id = '" . $account_id . "' ";
+		}else{
+			$where .= " AND account_id <> '' ";
 		}
 
 		$count = $this->where($where)->count();
 
 		$page = page($count,$per_page,$page_num);
 
-    $page->show();
+		$page->show();
 
     //print_r($page);exit();
 
