@@ -451,7 +451,7 @@ class PlayerService extends BaseService{
 
 		// 调取数据
 
-		$result = D('SpinLog')->get_all_spindata($param['operator_id'],$param['startdate'],$param['enddate'],$param['pagenum']);
+		$result = D('SpinLog')->get_all_spindata($param['operatorid'],$param['startdate'],$param['enddate'],$param['pagenum']);
 
 		return array(
 			'ret' => 0,
