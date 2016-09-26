@@ -413,6 +413,7 @@ class PlayerService extends BaseService{
 	 */
 	public static function get_all_spindata($param = array()){
 		// 必填项不能为空
+
 		if((!isset($param['startdate']) || trim($param['startdate'] == '')) || (!isset($param['enddate']) || trim($param['enddate']) == '')){
 
 			$err_code = 1007;
