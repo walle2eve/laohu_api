@@ -16,4 +16,20 @@ class BaseService{
 		return true;
 		
 	}
+	// 
+	public static function check_token($param = array()){
+		if(empty($param) || !$param['operator_id'] || $param['token']){
+			return false;
+		}
+
+		$operator_info = D('SysUser')->get_operator_info($operator_id);
+
+		$post_token = $param['token'];
+
+		unset($param['token']);
+
+		foreach($param as $val){
+			
+		}
+	}
 }
