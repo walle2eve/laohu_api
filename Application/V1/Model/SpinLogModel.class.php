@@ -43,7 +43,12 @@ class SpinLogModel extends MongoModel
 		$player = '';
 		$spin_num = 1;
 
-		foreach($result as $row){
+		foreach($result as &$row){
+			foreach($row as $key=>$val){
+				if(is_object($row[$key])){
+					$row[$key] = $val->value;
+				}
+			}
 			if($player != $row['account_id']){
 				$player = $row['account_id'];
 				$spin_num = 1;
