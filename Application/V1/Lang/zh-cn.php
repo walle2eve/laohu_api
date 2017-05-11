@@ -19,6 +19,7 @@ return array(
 
 	'API_ERR_MSG_1013' => '运营商订单号重复',
 	'API_ERR_MSG_1014' => '玩家账号已被冻结',
+	'API_ERR_MSG_1015' => '金币数必须大于0',
 
 	'API_ERR_MSG_1098' => '密码修改失败',
 	'API_ERR_MSG_1099' => '未知错误',

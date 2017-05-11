@@ -23,6 +23,16 @@ class UserOrderInfoModel extends Model
 			return array('err_code'=>1005);
 		}
 
+		if($amount <= 0){
+			$err_code = 1015;
+			$status = -1;
+			$remark = get_log_content($err_code);
+
+			return array('err_code'=>$err_code);
+		}
+
+		$amount = abs($amount);
+
 		// 查看运营商订单是否重复
 		$operator_order = $this->get_operator_order($operatorid,$adminname,$operatororderid);
 		if(!isset($operator_order['err_code']) || $operator_order['err_code'] != 1010){
@@ -41,7 +51,6 @@ class UserOrderInfoModel extends Model
 
 			return array('err_code'=>$err_code);
 		}
-
 		// 检测运营商金币余额是否足以抵扣本次用户充值
 		if($operator_info['gold'] < $amount){
 			$err_code = 1008;
@@ -102,6 +111,17 @@ class UserOrderInfoModel extends Model
 			// 运营商用户名错误
 			return array('err_code'=>1005);
 		}
+
+		if($amount <= 0){
+			$err_code = 1015;
+			$status = -1;
+			$remark = get_log_content($err_code);
+
+			return array('err_code'=>$err_code);
+		}
+
+		$amount = abs($amount);
+
 		// 查看运营商订单是否重复
 		$operator_order = $this->get_operator_order($operatorid,$adminname,$operatororderid);
 		if(!isset($operator_order['err_code']) || $operator_order['err_code'] != 1010){
