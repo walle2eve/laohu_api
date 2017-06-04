@@ -24,14 +24,14 @@ return array(
     'APP_DOMAIN_SUFFIX'      => '', // 域名后缀 如果是com.cn net.cn 之类的后缀必须设置
     'ACTION_SUFFIX'          => '', // 操作方法后缀
     'MULTI_MODULE'           => true, // 是否允许多模块 如果为false 则必须设置 DEFAULT_MODULE
-	
-	//'MODULE_ALLOW_LIST'   	 => array('v1','Admin','Test'),
+
+    'MODULE_ALLOW_LIST'      => array('V1','V2'),
     'MODULE_DENY_LIST'       => array('Common', 'Runtime'),
-	
+
     'CONTROLLER_LEVEL'       => 1,
     'APP_AUTOLOAD_LAYER'     => 'Controller,Model', // 自动加载的应用类库层 关闭APP_USE_NAMESPACE后有效
     'APP_AUTOLOAD_PATH'      => '', // 自动加载的路径 关闭APP_USE_NAMESPACE后有效
-	
+
     /* Cookie设置 */
     'COOKIE_EXPIRE'          => 0, // Cookie有效期
     'COOKIE_DOMAIN'          => '', // Cookie有效域名
@@ -44,9 +44,13 @@ return array(
     'DEFAULT_M_LAYER'        => 'Model', // 默认的模型层名称
     'DEFAULT_C_LAYER'        => 'Controller', // 默认的控制器层名称
     'DEFAULT_V_LAYER'        => 'View', // 默认的视图层名称
-    'DEFAULT_LANG'           => 'zh-cn', // 默认语言
-    'DEFAULT_THEME'          => '', // 默认模板主题名称	
-    'DEFAULT_MODULE'         => 'V1', // 默认模块
+
+    //'LANG_SWITCH_ON'          => true,        //开启多语言支持开关
+    'DEFAULT_LANG'           => 'zh-cn',    // 默认语言
+    //'LANG_AUTO_DETECT'        => true,    // 自动侦测语言
+    
+    'DEFAULT_THEME'          => '', // 默认模板主题名称
+    'DEFAULT_MODULE'         => 'V2', // 默认模块
     'DEFAULT_CONTROLLER'     => 'Index', // 默认控制器名称
     'DEFAULT_ACTION'         => 'index', // 默认操作名称
     'DEFAULT_CHARSET'        => 'utf-8', // 默认输出编码
@@ -54,14 +58,14 @@ return array(
     'DEFAULT_AJAX_RETURN'    => 'JSON', // 默认AJAX 数据返回格式,可选JSON XML ...
     'DEFAULT_JSONP_HANDLER'  => 'jsonpReturn', // 默认JSONP格式返回的处理方法
     'DEFAULT_FILTER'         => 'strip_tags,htmlspecialchars', // 默认参数过滤方法 用于I函数...
-	
+
     /* 数据库设置 */
     'DB_TYPE'                => 'mysql', // 数据库类型
-    'DB_HOST'                => '119.9.74.11,119.9.76.96', // 服务器地址
+    'DB_HOST'                => 'localhost', // 服务器地址
     'DB_PORT'                => '3306', // 端口
     'DB_NAME'                => 'laohu', // 数据库名
-    'DB_USER'                => 'quxiang', // 用户名
-    'DB_PWD'                 => '55CD3F6DF491F945', // 密码
+    'DB_USER'                => 'root', // 用户名
+    'DB_PWD'                 => '312250544', // 密码
     'DB_PREFIX'              => 't_', // 数据库表前缀
     'DB_PARAMS'              => array(), // 数据库连接参数
     'DB_DEBUG'               => false, // 数据库调试模式 开启后可以记录SQL日志
@@ -75,10 +79,10 @@ return array(
     // log库连接信息
     'DB_LAOHU_LOG_CONFIG' => array(
         'db_type'  => 'mysql',
-        'db_host'  => '119.9.74.11,119.9.76.96',
+        'db_host'  => 'localhost',
         'db_port'  => '3306',
-        'db_user'  => 'quxiang',
-        'db_pwd'   => '55CD3F6DF491F945',
+        'db_user'  => 'root',
+        'db_pwd'   => '312250544',
         'db_name'  => 'laohu_log',
         'db_charset'=>    'utf8',
         'DB_DEPLOY_TYPE'         => 1, 
@@ -90,12 +94,13 @@ return array(
     //  MONGO-DB
     'DB_TYPE_MONGO_CONFIG'  => array(
         'DB_TYPE'   => 'mongo',
-        'DB_HOST'   =>  '119.9.76.96',
+        'DB_HOST'   =>  '172.31.31.51',
         'DB_PORT'   =>  '27017',
         'DB_NAME'   =>  'laohu_log',
-        'DB_USER'   =>  'laohu_log',
-        'DB_PWD'    =>  'ts',
+        'DB_USER'   =>  '',//'laohu_log',
+        'DB_PWD'    =>  '',//'ts',
     ),
+    
     /* 数据缓存设置 */
     'DATA_CACHE_TIME'        => 0, // 数据缓存有效期 0表示永久缓存
     'DATA_CACHE_COMPRESS'    => false, // 数据缓存是否压缩缓存
@@ -139,7 +144,7 @@ return array(
     'TMPL_ENGINE_TYPE'       => 'Think', // 默认模板引擎 以下设置仅对使用Think模板引擎有效
     'TMPL_CACHFILE_SUFFIX'   => '.php', // 默认模板缓存后缀
     'TMPL_DENY_FUNC_LIST'    => 'echo,exit', // 模板引擎禁用函数
-    'TMPL_DENY_PHP'          => true, // 默认模板引擎是否禁用PHP原生代码
+    'TMPL_DENY_PHP'          => false, // 默认模板引擎是否禁用PHP原生代码
     'TMPL_L_DELIM'           => '{', // 模板引擎普通标签开始标记
     'TMPL_R_DELIM'           => '}', // 模板引擎普通标签结束标记
     'TMPL_VAR_IDENTIFY'      => 'array', // 模板变量识别。留空自动判断,参数为'obj'则表示对象
@@ -190,14 +195,39 @@ return array(
     'CHECK_APP_DIR'          => true, // 是否检查应用目录是否创建
     'FILE_UPLOAD_TYPE'       => 'Local', // 文件上传方式
     'DATA_CRYPT_TYPE'        => 'Think', // 数据加密方式
-	
-	//每页显示数量
-	'LIST_ROWS'				 => 20,
-	//语言包
-	'LANG_SWITCH_ON'		 => true,
-	'LANG_LIST'        		 => 'zh-cn', // 允许切换的语言列表 用逗号分隔
-	'VAR_LANGUAGE'     		 => 'l', // 默认语言切换变量
-	
-	// 扩展配置
-	'LOAD_EXT_CONFIG'		 => '',
+
+    //每页显示数量
+    'LIST_ROWS'              => 20,
+
+    //语言包
+    'LANG_SWITCH_ON'         => true,
+    'LANG_LIST'              => 'zh-cn', // 允许切换的语言列表 用逗号分隔
+    'VAR_LANGUAGE'           => 'l', // 默认语言切换变量
+    
+    //DES key
+    'DES_KEY'                => 'quxiang',
+
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // 存储类型，Oss OR QiNiu
+    'STORAGE_TYPE'          => 'QiNiu',
+    //OSS 
+    /***
+    'OSS_ACCESS_ID'         => 'ZwrJ4xFlrhlLa7Zm',
+    'OSS_ACCESS_KEY'        => 'sYqhvTZrsxNce8aPOHljyNJbkHgGzW',
+    'OSS_ENDPOINT'          => 'http://oss-cn-hongkong.aliyuncs.com',
+    'OSS_BUCKET'            => 'cientres1',
+    ***/
+    'OSS_ACCESS_ID'         => 'LTAIjfeLFDJ4HIVK',
+    'OSS_ACCESS_KEY'        => 'pJRBD2fPztKiNXtQfDlhUZPQWHoAg2',
+    'OSS_ENDPOINT'          => 'http://oss-cn-qingdao.aliyuncs.com',
+    'OSS_BUCKET'            => 'laohuupdate',
+
+
+    //qiniu 云存储
+    'QINIU_BUCKET'          => 'laohures',
+    'QINIU_ACCESS_KEY'      => 'ZHsRfw1Sbtfft124szCAB5Kca1GHT6_U2JJIXZpw',
+    'QINIU_SECRET_KEY'      => 'yYDguUEmV8KdfrZXDIr80743ENJppFjAZ6VZkSX4',
+
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 );
