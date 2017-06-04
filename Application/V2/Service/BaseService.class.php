@@ -82,8 +82,8 @@ class BaseService{
 		} else if ($data['apiname'] == 'frozen_player'){
 
 			$sourceSign = sprintf(
-				"adminname=%s&operatorid=%s&playeraccount=%s&reason=%s",
-				$data['adminname'], $data['operatorid'], $data['playeraccount'], $data['reason']
+				"operatorid=%s&playeraccount=%s&reason=%s",
+				$data['operatorid'], $data['playeraccount'], $data['reason']
 			);
 
 		} else if ($data['apiname'] == 'get_order_status'){
