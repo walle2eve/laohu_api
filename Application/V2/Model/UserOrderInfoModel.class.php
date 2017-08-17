@@ -8,20 +8,14 @@ class UserOrderInfoModel extends Model
 	const WITHDRAWAL_ORDER_TYPE = 210200;
 
 	// 充值
-	public function deposit($operatorid,$user_info,$adminname,$operatororderid,$amount,$remark=''){
+	public function deposit($operator_info,$user_info,$adminname,$operatororderid,$amount,$userinfoModel,$remark=''){
 
+        $admin_names = D('SysUser')->get_admin_info($operator_info['id']);
 
-		$operator_info = D('SysUser')->get_operator_info($operatorid);
-
-		if(!$operator_info || $operator_info['status'] != 1){
-			// 运营商ID错误或者运营商用户状态已禁用
-			return array('err_code'=>1002);
-		}
-
-		if($operator_info['login_name'] != $adminname){
-			// 运营商用户名错误
-			return array('err_code'=>1005);
-		}
+        if(!in_array($adminname,$admin_names)){
+            // 运营商用户名错误
+            return array('err_code'=>1005);
+        }
 
 		if($amount <= 0){
 			$err_code = 1015;
@@ -34,7 +28,7 @@ class UserOrderInfoModel extends Model
 		$amount = abs($amount);
 
 		// 查看运营商订单是否重复
-		$operator_order = $this->get_operator_order($operatorid,$adminname,$operatororderid);
+		$operator_order = $this->get_operator_order($operator_info['id'],$adminname,$operatororderid);
 		if(!isset($operator_order['err_code']) || $operator_order['err_code'] != 1010){
 			return array('err_code'=>1013);
 		}
@@ -65,14 +59,14 @@ class UserOrderInfoModel extends Model
 		$balance_gold = $user_info['gold'] + $amount;
 
 		// 用户余额增加$amount
-		$user_amount_inc = M('UserInfo')->where('user_id = %d',array($user_info['user_id']))->setInc('gold',$amount);
-		////echo M()->getlastsql();exit();
+		$user_amount_inc = $userinfoModel->where('user_id = %d',array($user_info['user_id']))->setInc('gold',$amount);
+
 		if($user_amount_inc == false){
 			$this->rollback();
 			return array('err_code'=>1099);
 		}
 
-		$sn_info = $this->add_order_info($operatorid,$user_info,$adminname,$operatororderid,$amount,$status,self::DEPOSIT_ORDER_TYPE,$gold,$balance_gold,$remark);
+		$sn_info = $this->add_order_info($operator_info['id'],$user_info,$adminname,$operatororderid,$amount,$status,self::DEPOSIT_ORDER_TYPE,$gold,$balance_gold,$remark);
 
 		if($sn_info === false){
 			$this->rollback();
@@ -81,7 +75,7 @@ class UserOrderInfoModel extends Model
 
 
 		// 运营商金币余额减去$amount
-		$operator_amount_dec = D('SysUser')->where('uid = %d',array($operatorid))->setDec('gold',$amount);
+		$operator_amount_dec = D('Operator')->where('id = %d',array($operator_info['id']))->setDec('gold',$amount);
 
 		if($operator_amount_dec == false){
 			$this->rollback();
@@ -92,25 +86,20 @@ class UserOrderInfoModel extends Model
 
 		$log_content = get_log_content(SysLogModel::PLAYER_DEPOSIT,array('amount'=>$amount));
 
-		D('SysLog')->add_log(SysLogModel::API_DO_LOG,$log_content,SysLogModel::PLAYER_DEPOSIT,$operatorid,$user_info['user_id']);
+		D('SysLog')->add_log(SysLogModel::API_DO_LOG,$log_content,SysLogModel::PLAYER_DEPOSIT,$operator_info['id'],$user_info['user_id']);
 
 		return $sn_info;
 
 	}
 	// 取现
-	public function withdrawal($operatorid,$user_info,$adminname,$operatororderid,$amount,$remark=''){
+	public function withdrawal($operator_info,$user_info,$adminname,$operatororderid,$amount,$userinfoModel,$remark=''){
 
-		$operator_info = D('SysUser')->get_operator_info($operatorid);
+        $admin_names = D('SysUser')->get_admin_info($operator_info['id']);
 
-		if(!$operator_info || $operator_info['status'] != 1){
-			// 运营商ID错误或者运营商用户状态已禁用
-			return array('err_code'=>1002);
-		}
-
-		if($operator_info['login_name'] != $adminname){
-			// 运营商用户名错误
-			return array('err_code'=>1005);
-		}
+        if(!in_array($adminname,$admin_names)){
+            // 运营商用户名错误
+            return array('err_code'=>1005);
+        }
 
 		if($amount <= 0){
 			$err_code = 1015;
@@ -123,7 +112,7 @@ class UserOrderInfoModel extends Model
 		$amount = abs($amount);
 
 		// 查看运营商订单是否重复
-		$operator_order = $this->get_operator_order($operatorid,$adminname,$operatororderid);
+		$operator_order = $this->get_operator_order($operator_info['id'],$adminname,$operatororderid);
 		if(!isset($operator_order['err_code']) || $operator_order['err_code'] != 1010){
 			return array('err_code'=>1013);
 		}
@@ -151,7 +140,7 @@ class UserOrderInfoModel extends Model
 		$gold = $amount;
 		$balance_gold = $user_info['gold'] - $amount;
 
-		$sn_info = $this->add_order_info($operatorid,$user_info,$adminname,$operatororderid,$amount,$status,self::WITHDRAWAL_ORDER_TYPE,$gold,$balance_gold,$remark);
+		$sn_info = $this->add_order_info($operator_info['id'],$user_info,$adminname,$operatororderid,$amount,$status,self::WITHDRAWAL_ORDER_TYPE,$gold,$balance_gold,$remark);
 
 		// 生成订单
 		if($sn_info === false){
@@ -160,14 +149,14 @@ class UserOrderInfoModel extends Model
 		}
 
 		// 用户余额减去$amount
-		$user_amount_dec = D('UserInfo')->where('user_id = %d',array($user_info['user_id']))->setDec('gold',$amount);
+		$user_amount_dec = $userinfoModel->where('user_id = %d',array($user_info['user_id']))->setDec('gold',$amount);
 
 		if($user_amount_dec === false){
 			$this->rollback();
 			return array('err_code'=>1099);
 		}
 		// 运营商金币余额增加$amount
-		$operator_amount_inc = D('SysUser')->where('uid = %d',array($operatorid))->setInc('gold',$amount);
+		$operator_amount_inc = D('Operator')->where('id = %d',array($operator_info['id']))->setInc('gold',$amount);
 
 		if($operator_amount_inc === false){
 			$this->rollback();
@@ -178,23 +167,18 @@ class UserOrderInfoModel extends Model
 
 		$log_content = get_log_content(SysLogModel::PLAYER_WITHDRAW,array('amount'=>$amount));
 
-		D('SysLog')->add_log(SysLogModel::API_DO_LOG,$log_content,SysLogModel::PLAYER_WITHDRAW,$operatorid,$user_info['user_id']);
+		D('SysLog')->add_log(SysLogModel::API_DO_LOG,$log_content,SysLogModel::PLAYER_WITHDRAW,$operator_info['id'],$user_info['user_id']);
 		return $sn_info;
 	}
 
 	// 查询订单信息
 	public function get_operator_order($operatorid,$adminname,$operatororderid){
-		$operator_info = D('SysUser')->get_operator_info($operatorid);
+        $admin_names = D('SysUser')->get_admin_info($operatorid);
 
-		if(!$operator_info || $operator_info['status'] != 1){
-			// 运营商ID错误或者运营商用户状态已禁用
-			return array('err_code'=>1002);
-		}
-
-		if($operator_info['login_name'] != $adminname){
-			// 运营商用户名错误
-			return array('err_code'=>1005);
-		}
+        if(!in_array($adminname,$admin_names)){
+            // 运营商用户名错误
+            return array('err_code'=>1005);
+        }
 
 		$order_info = $this->where("operator_id = %d AND operator_sn = '%s'",array($operatorid,$operatororderid))->find();
 

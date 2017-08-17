@@ -7,7 +7,14 @@ use V1\Model\SysLogModel;
 
 class UserInfoModel extends Model
 {
-	public function get_user_by_accountid($operator_id,$account_id){
+    protected $dbName =	'laohu';
+
+    public function __construct($dbName=''){
+        parent::__construct();
+        if($dbName != '')$this->dbName = $dbName;
+    }
+
+    public function get_user_by_accountid($operator_id,$account_id){
 		$account_id = trim($account_id);
 		return $this->where("operator_id = %d AND account_id = '%s'",array($operator_id,$account_id))->find();
 	}
@@ -65,6 +72,10 @@ class UserInfoModel extends Model
 			$this->rollback();
 			return $return;
 		}
+
+        $content = get_log_content(SysLogModel::SET_VIP_LEVEL);
+
+        $log_result = D('SysLog')->add_log(SysLogModel::API_DO_LOG,$content,SysLogModel::SET_VIP_LEVEL,$user_info['operator_id'],$user_info['user_id'],$vip_level);
 
 		if(!$log_result){
 			$this->rollback();

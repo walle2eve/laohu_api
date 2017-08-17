@@ -2,20 +2,28 @@
 namespace V2\Service;
 
 class BaseService{
-	// 检测运营商ID
+
+    protected static $operator_info;
+
+    public function __construct(){
+
+    }
+
+    // 检测运营商ID
 	public static function check_operator($param = array()){
 
-		$operator_id = !isset($param['operatorid']) || !$param['operatorid'] ? '0' : intval($param['operatorid']); 
-		
+		$operator_id = !isset($param['operatorid']) || !$param['operatorid'] ? '0' : intval($param['operatorid']);
+
 		if(!$operator_id) return false;
-		
-		$operator_info = D('SysUser')->get_operator_info($operator_id);
-	
+
+		$operator_info = D('Operator')->get_operator_info($operator_id);
 
 		if(!$operator_info || $operator_info['status'] != 1){
 			return false;
 		}
-		
+
+		self::$operator_info = $operator_info;
+
 		return true;
 		
 	}
@@ -26,7 +34,7 @@ class BaseService{
 			return false;
 		}
 
-		$operator_info = D('SysUser')->get_operator_info($param['operatorid']);
+		$operator_info = D('Operator')->get_operator_info($param['operatorid']);
 
 		$post_sign = $param['sign'];
 

@@ -4,25 +4,14 @@ use Think\Model;
 
 class SysUserModel extends Model
 {
-	public function get_operator_info($uid){
-		
-		$where['uid'] = $uid;
-		
-		//$where['status'] = 1;
-		
-		$where['user_role'] = array(
-						'IN',
-						array(
-							SysDictModel::USER_ROLE_OPERATOR,
-							SysDictModel::USER_ROLE_AGENT
-						)
-					);
-		
-		return $this->where($where)->find();
-	}
-	
-	// 修改运营商剩余金币余额
-	public function update_gold($uid,$gold){
-		return $this->where('uid = %d',array($uid))->setField('gold',$gold);
-	}
+	public function get_admin_info($operator_id){
+	    $admins =  $this->alias('admin')
+            ->join('LEFT Join __SYS_ROLE__ ro on ro.id = admin.user_role')
+            ->join('LEFT JOIN __SYS_ROLE_OPERATOR__ sro ON sro.role_id = ro.id')
+            ->join('LEFT JOIN __OPERATOR__ op ON op.id = sro.operator_id')
+            ->where('op.id = %d AND admin.status = 1 AND op.status = 1',array($operator_id))
+            ->getField('login_name',true);
+
+        return $admins;
+    }
 }

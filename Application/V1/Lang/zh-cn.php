@@ -23,6 +23,7 @@ return array(
 
 	'API_ERR_MSG_1098' => '密码修改失败',
 	'API_ERR_MSG_1099' => '未知错误',
+    'API_ERR_MSG_1999' => '不存在的方法',
 
 	/** log类型  */
 

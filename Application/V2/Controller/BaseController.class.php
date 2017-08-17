@@ -9,7 +9,9 @@ class BaseController extends RestController{
 
 	public function _initialize(){
 
-		$this->check_method();
+        ini_set('display_errors',1);
+
+        $this->check_method();
 
 		$post_data = I('post.','');
 
@@ -17,6 +19,16 @@ class BaseController extends RestController{
 
 		$this->check_sign($post_data);
 	}
+
+    public function _empty(){
+        $err_code = 1999;
+        $result = array(
+            'ret' => $err_code,
+            'msg' => get_err_msg($err_code)
+        );
+        $this->response($result,'json');
+        exit();
+    }
 
 	private function check_method(){
 		if(strtolower($this->_method) != 'post')

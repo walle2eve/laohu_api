@@ -15,6 +15,16 @@ class BaseController extends RestController{
 
 	}
 
+	public function _empty(){
+        $err_code = 1999;
+        $result = array(
+            'ret' => $err_code,
+            'msg' => get_err_msg($err_code)
+        );
+        $this->response($result,'json');
+        exit();
+    }
+
 	private function check_method(){
 		if(strtolower($this->_method) != 'post')exit('error method');
 	}

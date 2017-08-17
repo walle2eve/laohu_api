@@ -7,6 +7,13 @@ use V2\Model\SysLogModel;
 
 class UserInfoModel extends Model
 {
+    protected $dbName =	'laohu';
+
+    public function __construct($dbName=''){
+        parent::__construct();
+        if($dbName != '')$this->dbName = $dbName;
+    }
+
 	public function get_user_by_accountid($operator_id,$account_id){
 		$account_id = trim($account_id);
 		return $this->where("operator_id = %d AND account_id = '%s'",array($operator_id,$account_id))->find();
@@ -66,10 +73,10 @@ class UserInfoModel extends Model
 			return $return;
 		}
 
-		if(!$log_result){
-			$this->rollback();
-			return $log_result;
-		}
+		//if(!$log_result){
+		//	$this->rollback();
+		//	return $log_result;
+		//}
 
 		$this->commit();
 

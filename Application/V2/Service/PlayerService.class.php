@@ -4,8 +4,19 @@ namespace V2\Service;
 use V2\Model\SpinLogModel;
 use V2\Model\UserOrderInfoModel;
 use V2\Model\SysLogModel;
+use V2\Model\UserInfoModel;
 
 class PlayerService extends BaseService{
+
+    protected $userinfoDB;
+    protected $userinfoModel;
+
+    public function __construct($userinfoDB='')
+    {
+        $this->userinfoDB = $userinfoDB;
+        $this->userinfoModel = new UserInfoModel($userinfoDB);
+    }
+
 	/**
 	 * @function register 		玩家注册
 	 * @param $operator_id		运营商ID
@@ -27,7 +38,7 @@ class PlayerService extends BaseService{
 	 * @param $param2			扩展参数2
 	 * @return array
 	 */
-  public static function register($param = array()){
+  public function register($param = array()){
 
 		// 必填项不能为空
 		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || (!isset($param['password']) || $param['password']== '')){
@@ -40,7 +51,7 @@ class PlayerService extends BaseService{
 			);
 		}
 
-		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
+		$user_info = $this->userinfoModel->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
 
 		if(!empty($user_info)){
 
@@ -166,33 +177,62 @@ class PlayerService extends BaseService{
 			}
 		}
 
-		// 为防止数据库gold字段默认值和是否为空发生变化，这里生成用户时默认gold值为0
-		$data['gold'] = 0;
+      // 为防止数据库gold字段默认值和是否为空发生变化，这里生成用户时默认gold值为0
+      $data['gold'] = 0;
 
-		$data['create_time'] = date('Y-m-d H:i:s');
+      $data['create_time'] = date('Y-m-d H:i:s');
 
-		// 创建玩家账号
+      M()->startTrans();
 
-		$user_id = D('UserInfo')->add_player($data);
+      // 创建玩家账号
+      $this->userinfoModel = new UserInfoModel();
+      $user_id = $this->userinfoModel->add_player($data);
 
-		if($user_id){
-			$err_code = 0;
-			$return = array(
-				'ret' => 0,
-				'playeraccount' => $param['playeraccount'],
-				'password' => $param['password'],
-			);
-		}else{
+      if($user_id){
 
-			$user_id = 0;
-			$err_code = 1099;
+          if($this->userinfoDB){
+              $this->userinfoModel = new UserInfoModel($this->userinfoDB);
 
-			$return = array(
-				'ret' => $err_code,
-				'msg' => get_err_msg($err_code),
-			);
-		}
+              $data['user_id'] = $user_id;
+              $user_id = $this->userinfoModel->add_player($data);
+          }
 
+          if($user_id){
+              $err_code = 0;
+              $return = array(
+                  'ret' => 0,
+                  'playeraccount' => $param['playeraccount'],
+                  'password' => $param['password'],
+              );
+          }else{
+              $this->userinfoModel = new UserInfoModel();
+              $this->userinfoModel->where('user_id = %d',array($user_id))->delete();
+
+              $user_id = 0;
+              $err_code = 1099;
+
+              $return = array(
+                  'ret' => $err_code,
+                  'msg' => get_err_msg($err_code),
+              );
+
+              M()->rollback();
+          }
+
+      }else{
+
+          $user_id = 0;
+          $err_code = 1099;
+
+          $return = array(
+              'ret' => $err_code,
+              'msg' => get_err_msg($err_code),
+          );
+          M()->rollback();
+
+      }
+
+      M()->commit();
 		$content =  get_log_content(SysLogModel::PLAYER_REGISTER,array('player_account'=>$data['account_id'])) . ($err_code == 0 ? '成功' : '失败');
 
 		$log_result = D('SysLog')->add_log(SysLogModel::API_DO_LOG,$content,SysLogModel::PLAYER_REGISTER,$data['operator_id'],$user_id,$reason);
@@ -207,7 +247,7 @@ class PlayerService extends BaseService{
 	 * @param $player_account	玩家登录名
 	 * @return array
 	 */
-	public static function get_info($param = array()){
+	public function get_info($param = array()){
 		// 必填项不能为空
 		if(!isset($param['playeraccount']) || $param['playeraccount'] == ''){
 
@@ -219,7 +259,7 @@ class PlayerService extends BaseService{
 			);
 		}
 
-		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
+		$user_info = $this->userinfoModel->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
 
 		if(!$user_info){
 
@@ -263,7 +303,7 @@ class PlayerService extends BaseService{
 	 * @param $newpassword		新密码
 	 * @return array
 	 */
-	public static function update_pwd($param = array()){
+	public function update_pwd($param = array()){
 		// 必填项不能为空
 		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || (!isset($param['newpassword']) || $param['newpassword']== '')){
 
@@ -275,7 +315,7 @@ class PlayerService extends BaseService{
 			);
 		}
 
-		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
+		$user_info = $this->userinfoModel->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
 
 		if(!$user_info){
 
@@ -289,7 +329,7 @@ class PlayerService extends BaseService{
 
 		$password = get_pwd($param['newpassword'],$user_info['uniquekey']);
 
-		$return = D('UserInfo')->update_pwd($param['operatorid'],$user_info['user_id'],$password);
+		$return = $this->userinfoModel->update_pwd($param['operatorid'],$user_info['user_id'],$password);
 
 		if($return === false){
 
@@ -315,7 +355,7 @@ class PlayerService extends BaseService{
 	 * @param $reason			冻结原因
 	 * @return array
 	 */
-	public static function frozen($param = array()){
+	public function frozen($param = array()){
 		// 必填项不能为空
 		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || (!isset($param['reason']) || trim($param['reason']) == '')){
 
@@ -327,7 +367,7 @@ class PlayerService extends BaseService{
 			);
 		}
 
-		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
+		$user_info = $this->userinfoModel->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
 
 		if(!$user_info){
 
@@ -341,7 +381,7 @@ class PlayerService extends BaseService{
 
 		// 冻结操作
 
-		$return = D('UserInfo')->frozen($user_info,$param['reason']);
+		$return = $this->userinfoModel->frozen($user_info,$param['reason']);
 		if($return === false){
 			$err_code = 1099;
 			return array(
@@ -363,7 +403,7 @@ class PlayerService extends BaseService{
 	 * @param $viplev					vip等级
 	 * @return array
 	 */
-	public static function set_viplevel($param = array()){
+	public function set_viplevel($param = array()){
 		// 必填项不能为空
 		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') || (!isset($param['viplev']) || trim($param['viplev']) == '')){
 
@@ -375,7 +415,7 @@ class PlayerService extends BaseService{
 			);
 		}
 
-		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
+		$user_info = $this->userinfoModel->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
 
 		if(!$user_info){
 
@@ -389,7 +429,7 @@ class PlayerService extends BaseService{
 
 		// 设置vip等级
 
-		$return = D('UserInfo')->set_viplevel($user_info,$param['viplev']);
+		$return = $this->userinfoModel->set_viplevel($user_info,$param['viplev']);
 		if($return === false){
 			$err_code = 1099;
 			return array(
@@ -411,7 +451,7 @@ class PlayerService extends BaseService{
 	/**
 	 * @function get_all_spindata			获取玩家投注信息
 	 */
-	public static function get_all_spindata($param = array()){
+	public function get_all_spindata($param = array()){
 		// 必填项不能为空
 
 		if((!isset($param['startdate']) || trim($param['startdate'] == '')) || (!isset($param['enddate']) || trim($param['enddate']) == '')){
@@ -471,7 +511,7 @@ class PlayerService extends BaseService{
 	 * @param $amount			转入金额
 	 * @return array
 	 */
-	public static function deposit($param = array()){
+	public function deposit($param = array()){
 		// 必填项不能为空
 		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') ||
 			(!isset($param['adminname']) || $param['adminname'] == '') ||
@@ -489,7 +529,7 @@ class PlayerService extends BaseService{
 
 		$param['amount'] = (float)$param['amount'];
 
-		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
+		$user_info = $this->userinfoModel->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
 
 		if(!$user_info){
 
@@ -501,7 +541,7 @@ class PlayerService extends BaseService{
 			);
 		}
 		// 充值
-		$return  =  D('UserOrderInfo')->deposit($param['operatorid'],$user_info,$param['adminname'],$param['operatororderid'],$param['amount']);
+		$return  =  D('UserOrderInfo')->deposit(self::$operator_info,$user_info,$param['adminname'],$param['operatororderid'],$param['amount'],$this->userinfoModel);
 
 		if($return['err_code'] > 0){
 			$err_code = $return['err_code'];
@@ -533,7 +573,7 @@ class PlayerService extends BaseService{
 	 * @param $amount			取现金额
 	 * @return array
 	 */
-	public static function withdrawal($param = array()){
+	public function withdrawal($param = array()){
 		// 必填项不能为空
 		if((!isset($param['playeraccount']) || $param['playeraccount'] == '') ||
 			(!isset($param['adminname']) || $param['adminname'] == '') ||
@@ -551,7 +591,7 @@ class PlayerService extends BaseService{
 
 		$param['amount'] = (float)$param['amount'];
 
-		$user_info = D('UserInfo')->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
+		$user_info = $this->userinfoModel->get_user_by_accountid($param['operatorid'],$param['playeraccount']);
 
 		if(!$user_info){
 
@@ -563,7 +603,7 @@ class PlayerService extends BaseService{
 			);
 		}
 		// 取现
-		$return  =  D('UserOrderInfo')->withdrawal($param['operatorid'],$user_info,$param['adminname'],$param['operatororderid'],$param['amount']);
+		$return  =  D('UserOrderInfo')->withdrawal(self::$operator_info,$user_info,$param['adminname'],$param['operatororderid'],$param['amount'],$this->userinfoModel);
 
 		if($return['err_code'] > 0){
 			$err_code = $return['err_code'];
@@ -594,7 +634,7 @@ class PlayerService extends BaseService{
 	 * @param $amount			取现金额
 	 * @return array
 	 */
-	public static function get_order_status($param = array()){
+	public function get_order_status($param = array()){
 		// 必填项不能为空
 		if((!isset($param['adminname']) || $param['adminname'] == '') ||
 			(!isset($param['operatororderid']) || $param['operatororderid'] == '')){
@@ -618,7 +658,7 @@ class PlayerService extends BaseService{
 			);
 		}
 
-		$user_info = D('UserInfo')->where('user_id = %d',array($return['player_id']))->find();
+		$user_info = $this->userinfoModel->where('user_id = %d',array($return['player_id']))->find();
 
 		return array(
 			'ret' => 0,
