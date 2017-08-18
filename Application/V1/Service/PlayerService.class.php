@@ -72,7 +72,7 @@ class PlayerService extends BaseService{
 		if(strlen($param['playeraccount']) > 60){
 			$param_err = 1;
 		}else{
-			$data['account_id'] = trim($param['playeraccount']);
+			$data['account_id'] = strtoupper(trim($param['playeraccount']));
 		}
 
 		$data['operator_id'] = $param['operatorid'];
