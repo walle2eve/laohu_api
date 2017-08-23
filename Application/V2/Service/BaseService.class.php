@@ -68,7 +68,7 @@ class BaseService{
 
 			$sourceSign = sprintf(
 				"newpassword=%s&operatorid=%s&playeraccount=%s",
-				$data['operatorid'], $data['operatorid'], $data['playeraccount']
+				$data['newpassword'], $data['operatorid'], $data['playeraccount']
 			);
 
 
